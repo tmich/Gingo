@@ -1,0 +1,33 @@
+{% extends 'layout.htm' %}
+{% block container %}
+{% from 'macros.htm' import paginate %}
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Tutti gli ordini</h1>
+	</div>
+</div> 
+<br /><br />
+<div class="panel panel-default">
+{% if orders.items %}			                                 
+	<!-- Table -->
+	<table class="table">
+		<tr>
+			<th>ID</th><th>Scarica</th><th>Cliente</th><th>Data</th><th>Azioni</th><!--th>Utente</th-->
+		</tr>
+		{% for data in orders.items %}
+		<tr>
+			<td>{{data.id}}</td>
+			<td><a href="{{ url_for('admin.download_doc', id_doc=data.id) }}">Scarica</a></td>
+			<td>{{data.customer.name}}</td>
+			<td>{{data.creation_date}}</td>
+			<td><a href="{{ url_for('admin.cancella_ordine', o_id=data.id) }}" class="btn btn-sm btn-danger" aria-label="Elimina" aria-hidden="true"><span class="glyphicon glyphicon-trash"></span> Elimina</a></td>
+			<!--td>{#data.user.username#}</td-->
+		</tr>
+		{% endfor %}
+	</table>
+{% else %}
+	<b>Nessun risultato</b>
+{% endif %}
+</div>
+{{ paginate(orders) }}
+{% endblock %}

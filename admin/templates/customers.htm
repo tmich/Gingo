@@ -1,0 +1,49 @@
+{% extends 'layout.htm' %}
+{% block container %}
+{% from 'macros.htm' import paginate %}
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">{% if query %} Risultati della ricerca ({{ query }}) {% else %}Tutti i clienti {% endif %}</h1>
+	</div>
+</div> 
+<a href="{{ url_for('admin.new_customer') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuovo cliente</a>
+<a href="{{ url_for('admin.import_customers') }}" class="btn btn-default"><span class="glyphicon glyphicon-share-alt"></span> Importa da XML</a>
+<br /><br />
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <!--div class="panel-heading">Clienti</div>
+  <div class="panel-body">
+    <p>prova</p>
+  </div-->
+	{% if customers %}
+			<!-- Table -->
+		  <table class="table">
+			<tr>
+				<th>ID</th>
+				<th>Codice</th>
+				<th>Nome</th>
+				<th>Indirizzo</th>
+				<th>CAP</th>
+				<th>Citt&agrave;</th>
+				<th>Prov</th>
+				<th>Part. iva</th>
+			</tr>
+		  {% for data in customers.items %}
+		  <tr>
+			<td>{{data.id}}</td>
+			<td>{{data.code}}</td>
+			<td>{{data.name}}</td>
+			<td>{{data.address if data.address != None else ""}}</td>
+			<td>{{data.cap if data.cap != None else ""}}</td>
+			<td>{{data.city if data.city != None else ""}}</td>
+			<td>{{data.prov if data.prov != None else ""}}</td>
+			<td>{{data.part_iva if data.part_iva!= None else ""}}</td>
+			<td><a href="{{ url_for('admin.edit_customer', customer_id=data.id) }}" class="btn btn-sm btn-default" aria-label="Modifica" aria-hidden="true" ><span class="glyphicon glyphicon-edit"></span> Modifica</a></td>
+			<td><a href="{{ url_for('admin.delete_customer', customer_id=data.id) }}" class="btn btn-sm btn-danger" aria-label="Elimina" aria-hidden="true"><span class="glyphicon glyphicon-trash"></span> Elimina</a></td>
+		  </tr>
+		{% endfor %}
+		  </table>
+		</div>
+		{{ paginate(customers) }}
+	{% endif %}
+{% endblock %}

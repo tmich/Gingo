@@ -1,0 +1,11 @@
+{% macro paginate(data, show_pages=5) %}
+<nav>
+<ul class="pagination">
+    <li class="{% if not data.has_prev %} disabled {% endif %}"><a href="{{ url_for(request.endpoint, page=data.prev_num) }}" aria-label="Precedente"><span aria-hidden="true">&laquo;</span></a></li>
+    {% for i in range(data.page - show_pages if data.page > show_pages else 1, data.page + show_pages if data.page + show_pages <= data.pages else data.pages+1) %}
+		<li class="{% if i == data.page %} active {% endif %}"><a href="{{ url_for(request.endpoint, page=i) }}">{{ i }}</a></li>
+	{% endfor %}
+	<li class="{% if not data.has_next %} disabled {% endif %}"><a href="{{ url_for(request.endpoint, page=data.next_num) }}" aria-label="Successivo"><span aria-hidden="true">&raquo;</span></a></li>
+  </ul>
+</nav>
+{% endmacro %}

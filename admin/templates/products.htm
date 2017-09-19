@@ -1,0 +1,35 @@
+{% extends 'layout.htm' %}
+{% block container %}
+{% from 'macros.htm' import paginate %}
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Tutti i prodotti</h1>
+	</div>
+</div> 
+<a href="{{ url_for('admin.new_product') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Nuovo Prodotto</a>
+<a href="{{ url_for('admin.import_products') }}" class="btn btn-default"><span class="glyphicon glyphicon-share-alt"></span> Importa da XML</a>
+<br /><br />
+<div class="panel panel-default">
+{% if products.items %}			                                 
+	<!-- Table -->
+	<table class="table">
+		<tr>
+			<th>ID</th><th>Codice</th><th>Nome</th><th>Prezzo</th>
+		</tr>
+		{% for data in products.items %}
+		<tr>
+			<td>{{data.id}}</td>
+			<td>{{data.code}}</td>
+			<td>{{data.name}}</td>
+			<td>{{data.price}}</td>
+			<td><a href="{{ url_for('admin.edit_product', product_id=data.id) }}" class="btn btn-sm btn-default" aria-label="Modifica" aria-hidden="true" ><span class="glyphicon glyphicon-edit"></span> Modifica</a></td>
+			<td><a href="{{ url_for('admin.delete_product', product_id=data.id) }}" class="btn btn-sm btn-danger" aria-label="Elimina" aria-hidden="true"><span class="glyphicon glyphicon-trash"></span> Elimina</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+{% else %}
+	<b>Nessun risultato</b>
+{% endif %}
+</div>
+{{ paginate(products) }}
+{% endblock %}

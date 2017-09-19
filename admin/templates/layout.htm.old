@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initialscale=1">
+    <title>Gingo</title>
+    <meta charset="utf-8">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  </head>
+  <body>	
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			<ul class="flashes">
+			{% for message in messages %}
+				<li>{{ message }}</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+	{% endwith %}
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('admin.index') }}">Gingo</a>
+        </div>
+        <div>
+          <ul class="nav navbar-nav">
+			{% if g.user %}
+            <!--<li><a class="navbar-brand" href="{{ url_for('admin.index') }}">Home</a></li>-->
+            <li><a class="navbar-brand" href="{{ url_for('admin.display_customers') }}">Clienti</a></li>
+            <li><a class="navbar-brand" href="{{ url_for('admin.display_products') }}">Prodotti</a></li>
+			{% endif %}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
+			{% if g.user %}
+				<li><a href="{{ url_for('admin.logout') }}"><span class="glyphicon glyphicon-log-out"></span> Ciao {{g.user.username}} (esci)</a></li>
+			{% else %}
+				<li><a href="{{ url_for('admin.login') }}"><span class="glyphicon glyphicon-log-in"></span> Accedi</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+    {% block container %}{% endblock %}
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  </body>
+</html>

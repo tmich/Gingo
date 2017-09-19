@@ -1,0 +1,107 @@
+{% extends 'public_layout.htm' %}
+{% block navigation %}
+	<!-- Navigation -->
+	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.html">Gingo Administration</a>
+		</div>
+		<!-- /.navbar-header -->
+
+		<ul class="nav navbar-top-links navbar-right">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-user">
+					<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+					</li>
+					<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+					</li>
+					<li class="divider"></li>
+					<li><a href="{{ url_for('admin.logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+					</li>
+				</ul>
+				<!-- /.dropdown-user -->
+			</li>
+			<!-- /.dropdown -->
+		</ul>
+		<!-- /.navbar-top-links -->
+
+		<div class="navbar-default sidebar" role="navigation">
+			<div class="sidebar-nav navbar-collapse">
+				<ul class="nav" id="side-menu">
+					{# if request.endpoint in ('admin.display_customers', 'admin.display_products') #}
+						<!--
+						<li class="sidebar-search">
+							<div class="input-group custom-search-form">
+								<form method="GET" action="{# url_for('admin.search_products') if request.endpoint == 'admin.display_products' else url_for('admin.search_customers') #}" role="form">
+									<input type="text" class="form-control" placeholder="Search..." name="q">
+									<span class="input-group-btn">
+										<input type="submit" class="btn btn-default">
+											<i class="fa fa-search"></i>
+										</button>
+									</span>
+								</form>
+							</div>
+							<!-- /input-group -->
+						<!--</li>-->
+					{# endif #}
+					<li>
+						<a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+					</li>
+					
+					<!--  Clienti -->
+					<li>
+						<a href="{{ url_for('admin.display_customers') }}"><i class="fa fa-user fa-fw"></i> Clienti</a>
+					</li>
+					
+					<!--  Prodotti -->
+					<li>
+						<a href="{{ url_for('admin.display_products') }}"><i class="fa fa-glass fa-fw"></i> Prodotti</a>
+					</li>
+					
+					<!--  Ordini -->
+					<li>
+						<a href="{{ url_for('admin.display_orders') }}"><i class="fa fa-wrench fa-fw"></i> Ordini</a>
+					</li>
+					
+					<!--
+					<li>
+						<a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li>
+								<a href="panels-wells.html">Panels and Wells</a>
+							</li>
+							<li>
+								<a href="buttons.html">Buttons</a>
+							</li>
+							<li>
+								<a href="notifications.html">Notifications</a>
+							</li>
+							<li>
+								<a href="typography.html">Typography</a>
+							</li>
+							<li>
+								<a href="icons.html"> Icons</a>
+							</li>
+							<li>
+								<a href="grid.html">Grid</a>
+							</li>
+						</ul>
+						<!-- /.nav-second-level -->
+					<!--/li>
+					-->
+				</ul>
+			</div>
+			<!-- /.sidebar-collapse -->
+		</div>
+		<!-- /.navbar-static-side -->
+	</nav>
+
+{% endblock %}

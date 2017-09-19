@@ -1,0 +1,35 @@
+{% extends 'layout.htm' %}
+{% block container %}
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">{{customer.name if customer.name != None else 'Nuovo cliente'}}</h1>
+	</div>
+	<!-- /.col-lg-12 -->
+</div> 
+<div class="panel panel-default">
+	<div class="panel-heading">
+		Dati cliente
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-lg-6">                                  
+				<form action="{{ url_for('admin.save_customer') }}" method="POST" role="form">
+					<input type="hidden" readonly="readonly" name="customer_id" value="{{customer.id if customer.id != None else 0}}" />
+					<div class="form-group">
+						<label>Codice</label><input type="text" class="form-control" name="code" value="{{customer.code if customer.code != None}}" />
+						<label>Nome</label><input type="text" class="form-control" name="name" value="{{customer.name if customer.name != None}}" />
+						<label>Indirizzo</label><input type="text" class="form-control" name="address" value="{{customer.address if customer.address != None}}" />
+						<label>CAP</label><input type="text" class="form-control" name="cap" value="{{customer.cap if customer.cap != None}}" />
+						<label>Citt&agrave;</label><input type="text" class="form-control" name="city" value="{{customer.city if customer.city != None}}" />
+						<label>Prov</label><input type="text" class="form-control" name="prov" value="{{customer.prov if customer.prov != None}}" />
+						<label>Part. IVA</label><input type="text" class="form-control" name="part_iva" value="{{customer.part_iva if customer.part_iva != None}}" />
+						<br />
+						<input type="submit" class="btn btn-primary" aria-label="Salva" aria-hidden="true" value="Salva">
+						<a href="javascript:history.back();" class="btn btn-default" aria-label="Annulla" aria-hidden="true">Annulla</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

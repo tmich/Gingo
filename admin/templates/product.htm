@@ -1,0 +1,12 @@
+{% extends 'layout.htm' %}
+{% block container %}
+<form action="{{ url_for('admin.save_product') }}" method="POST">
+<input type="hidden" readonly="readonly" name="product_id" value="{{product.id if product.id != None else 0}}" />
+<table> 
+  <tr><th>Codice</th><td><input type="text" name="code" value="{{product.code if product.code != None}}" /></td></tr>
+  <tr><th>Nome</th><td><input type="text" name="name" value="{{product.name if product.name != None}}" /></td></tr>
+  <tr><th>Prezzo</th><td><input type="text" name="price" value="{{product.price if product.price != None}}" /></td></tr>
+  <tr><td colspan="2"><input type="submit" value="Salva"></td></tr>
+ </table>
+</form>
+{% endblock %}
